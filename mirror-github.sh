@@ -14,10 +14,11 @@ done
 
 for folder in `ls`
 do
-  pushd .
+  pushd . > /dev/null
   cd $folder
-  git remote update
-  popd
+  echo updating $(pwd)
+  git remote set-url origin https://$gh_token@github.com/jdmichaud/$folder
+  git remote update --prune
+  popd > /dev/null
 done
-
 
