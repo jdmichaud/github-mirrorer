@@ -4,7 +4,8 @@
 
 cd /data
 
-repos=`curl --silent -u jdmichaud:$gh_token https://api.github.com/user/repos?per_page=1000 -q | grep clone_url | sed -e 's/[[:space:]]*"clone_url": "\([^"]*\)",/\1/g'`
+# Only 3 pages (max 300 repos)
+repos=`curl --silent -u jdmichaud:$gh_token https://api.github.com/user/repos?per_page=100 -q | grep clone_url | sed -e 's/[[:space:]]*"clone_url": "\([^"]*\)",/\1/g'i ; curl --silent -u jdmichaud:$gh_token https://api.github.com/user/repos?per_page=100\&page=2 -q | grep clone_url | sed -e 's/[[:space:]]*"clone_url": "\([^"]*\)",/\1/g' ; curl --silent -u jdmichaud:$gh_token https://api.github.com/user/repos?per_page=100\&page=3 -q | grep clone_url | sed -e 's/[[:space:]]*"clone_url": "\([^"]*\)",/\1/g'`
 
 for repo in $repos
 do
@@ -21,4 +22,3 @@ do
   git remote update --prune
   popd > /dev/null
 done
-
