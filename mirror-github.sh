@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 
-#[ ! -d "/data" ] && echo "error: no volume mounted to /data" && exit 1
+[ ! -d "/data" ] && echo "error: no volume mounted to /data" && exit 1
 
-#cd /data
-
-cd /media/jedi/fastdisk/test/
+cd /data
 
 page=1
 repos=()
