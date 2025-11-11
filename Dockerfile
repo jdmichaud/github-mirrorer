@@ -13,7 +13,10 @@ RUN crontab /etc/cron.d/github-mirror-cron
  
 # Create the log file to be able to run tail
 RUN touch /var/log/cron.log
- 
+
+# Make sure git does not complains about ownership
+RUN git config --system --add safe.directory '*'
+
 # Run the command on container startup
 # When cron run a job, it does not reuse your environment, not even root's. So
 # for the github token to be available to the script, you have to dump the
